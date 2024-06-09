@@ -14,9 +14,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
-/** Constant */
-import { Milliseconds_Per_Day } from "./utilities/constants";
-
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
@@ -52,46 +49,12 @@ const App: React.FC = () => {
     }
   }, [startDate, endDate, data]);
 
-  // useEffect(() => {
-  //   if (filteredData) {
-  //     // handleZoom();
-  //   }
-  // }, [filteredData]);
-
-  const handleZoom = (chartContext: any, { xaxis }: any) => {
-    const visibleData = data.filter((d) => {
-      const date = new Date(d.x);
-      return date.getTime() >= xaxis.min && date.getTime() <= xaxis.max;
-    });
-
-    const minDate: any = new Date(xaxis.min);
-    const maxDate: any = new Date(xaxis.max);
-
-    const numberOfDays = Math.ceil((maxDate - minDate) / Milliseconds_Per_Day);
-
-    if (visibleData.length) {
-      const maxYValue = Math.max(...visibleData.flatMap((d) => d.y));
-
-      chartContext.updateOptions({
-        yaxis: {
-          max: maxYValue + maxYValue * 0.3,
-        },
-        xaxis: {
-          tickAmount: numberOfDays > 6 ? 6 : numberOfDays,
-        },
-      });
-    }
-  };
-
   const option: ApexCharts.ApexOptions = {
     chart: {
       type: "candlestick",
-      events: {
-        zoomed: handleZoom,
+      zoom: {
+        enabled: false,
       },
-      // zoom: {
-      //   enabled: false,
-      // },
       background: "#1c2027",
     },
     grid: {
@@ -181,6 +144,7 @@ const App: React.FC = () => {
                 onChange={(val) => setEndDate(val)}
                 format="YYYY-MM-DD"
                 maxDate={dayjs("05/31/2024")}
+                minDate={dayjs("08/15/2023")}
               />
               <DatePicker
                 label="From Date"
@@ -188,6 +152,7 @@ const App: React.FC = () => {
                 onChange={(val) => setStartDate(val)}
                 sx={{ mr: 2 }}
                 format="YYYY-MM-DD"
+                maxDate={dayjs("05/31/2024")}
                 minDate={dayjs("08/15/2023")}
               />
             </LocalizationProvider>

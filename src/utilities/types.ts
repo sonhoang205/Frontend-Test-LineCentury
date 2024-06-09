@@ -1,4 +1,4 @@
 export interface CsvData {
-  x: Date;
+  x: string;
   y: number[];
 }

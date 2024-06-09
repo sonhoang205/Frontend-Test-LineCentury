@@ -42,17 +42,27 @@ const App: React.FC = () => {
     if (startDate && endDate) {
       const start = new Date(startDate);
       const end = new Date(endDate);
-      const filtered = data.filter((item) => item.x >= start && item.x <= end);
+      const filtered = data.filter((item) => {
+        const date = new Date(item.x);
+        return date >= start && date <= end;
+      });
       setFilteredData(filtered);
     } else {
       setFilteredData(data);
     }
   }, [startDate, endDate, data]);
 
+  // useEffect(() => {
+  //   if (filteredData) {
+  //     // handleZoom();
+  //   }
+  // }, [filteredData]);
+
   const handleZoom = (chartContext: any, { xaxis }: any) => {
-    const visibleData = data.filter(
-      (d) => d.x.getTime() >= xaxis.min && d.x.getTime() <= xaxis.max
-    );
+    const visibleData = data.filter((d) => {
+      const date = new Date(d.x);
+      return date.getTime() >= xaxis.min && date.getTime() <= xaxis.max;
+    });
 
     const minDate: any = new Date(xaxis.min);
     const maxDate: any = new Date(xaxis.max);
@@ -79,6 +89,9 @@ const App: React.FC = () => {
       events: {
         zoomed: handleZoom,
       },
+      // zoom: {
+      //   enabled: false,
+      // },
       background: "#1c2027",
     },
     grid: {

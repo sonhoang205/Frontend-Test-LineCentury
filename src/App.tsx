@@ -66,7 +66,7 @@ const App: React.FC = () => {
       },
     },
     xaxis: {
-      type: "datetime",
+      type: "category",
       labels: {
         rotate: 0,
         datetimeFormatter: {
@@ -74,6 +74,9 @@ const App: React.FC = () => {
           month: "yyyy-dd-MM",
           day: "yyyy-dd-MM",
           hour: "yyyy-dd-MM",
+        },
+        formatter: function (value: any) {
+          return new Date(value).toLocaleDateString();
         },
         style: {
           fontWeight: "regular",

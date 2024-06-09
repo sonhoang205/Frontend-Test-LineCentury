@@ -53,7 +53,8 @@ const App: React.FC = () => {
     chart: {
       type: "candlestick",
       zoom: {
-        enabled: false,
+        enabled: true,
+        type: "x",
       },
       background: "#1c2027",
     },
@@ -147,7 +148,7 @@ const App: React.FC = () => {
                 onChange={(val) => setEndDate(val)}
                 format="YYYY-MM-DD"
                 maxDate={dayjs("05/31/2024")}
-                minDate={dayjs("08/15/2023")}
+                minDate={startDate ? startDate : dayjs("08/15/2023")}
               />
               <DatePicker
                 label="From Date"
@@ -155,7 +156,7 @@ const App: React.FC = () => {
                 onChange={(val) => setStartDate(val)}
                 sx={{ mr: 2 }}
                 format="YYYY-MM-DD"
-                maxDate={dayjs("05/31/2024")}
+                maxDate={endDate ? endDate : dayjs("05/31/2024")}
                 minDate={dayjs("08/15/2023")}
               />
             </LocalizationProvider>

@@ -53,7 +53,8 @@ const App: React.FC = () => {
     chart: {
       type: "candlestick",
       zoom: {
-        enabled: false,
+        enabled: true,
+        type: "x",
       },
       background: "#1c2027",
     },

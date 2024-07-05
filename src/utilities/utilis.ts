@@ -23,11 +23,7 @@ export const csvToObjectForChart = (csv: string): CsvData[] => {
     result.push(obj);
   }
   // Sort the result by the timestamp (x)
-  result.sort((a, b) => {
-    const dateA = new Date(a.x);
-    const dateB = new Date(b.x);
-    return dateA.getTime() - dateB.getTime();
-  });
+  // result.sort((a, b) => a.x.getTime() - b.x.getTime());
 
   return result;
 };
